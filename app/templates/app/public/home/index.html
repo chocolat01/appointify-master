@@ -1,0 +1,70 @@
+{% extends "app/public/layouts/default.html" %} {% block content %} 
+{% load static %}
+<header class="bg-dark py-5">
+  <div class="container px-4 px-lg-5 my-5">
+    <div class="text-center text-white">
+      <h1 class="display-4 fw-bolder">Shop in style</h1>
+      <p class="lead fw-normal text-white-50 mb-0">
+        With this shop hompeage template
+      </p>
+    </div>
+  </div>
+</header>
+<!-- Section-->
+<section class="py-5">
+  <h4>{{ medecins }}</h4>
+  <h4>{{ medecins_par_specialites }}</h4>
+  <h4>{{ medecins_par_specialitee }}</h4>
+  <div class="container px-4 px-lg-5 mt-5">
+    {% for specialite, medecins in medecins_par_specialite.items %}
+    <div
+      class="card-header"
+      style="text-align: center; text-decoration: underline"
+    >
+      <h3 class="fw-bolder">{{ specialite }}</h3>
+    </div>
+    <br /><br />
+    <div
+      class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+    >
+      {% for medecin in medecins %}
+      <div class="col mb-5">
+        <div class="card h-100">
+          <!-- Product image-->
+          <img
+            class="card-img-top"
+            src="{{ medecin.profile_photo.url }}"
+            alt="{{ medecin.profile_photo.url }}"
+          />
+          {% comment %}
+          <img
+            class="card-img-top"
+            src="{% static 'app/public/img/medecins.jpeg' %}"
+            alt="..."
+          />
+          {% endcomment %}
+          <!-- Product details-->
+          <div class="card-body p-4">
+            <div class="text-center">
+              <!-- Product name-->
+              <h5 class="fw-bolder">
+                {{ medecin.user.first_name }} {{ medecin.user.last_name }}
+              </h5>
+              <!-- Product price-->
+              <p>Specialité : <span style="color:blue;font-weight : bold;">{{ medecin.specialite }}</span></p>
+            </div>
+          </div>
+          <!-- Product actions-->
+          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center">
+              <a class="btn btn-outline-dark mt-auto" href="{% url 'public_med_description' medecin.id %}">Voir informations</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock content %}

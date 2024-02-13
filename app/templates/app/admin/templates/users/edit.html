@@ -1,0 +1,59 @@
+{% extends 'app/admin/layouts/default.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      </ol>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <!-- Select2 -->
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Modifier l'utilisateur</h6>
+                </div>
+                <div class="card-body">
+                    <!--verifical Form-->
+                    <form action="{% url 'users_update' form.instance.pk %}" method="POST"> 
+                        {% csrf_token %}             
+                        <div class="form-group">
+                            {{ form.first_name|as_crispy_field }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.last_name|as_crispy_field }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.email|as_crispy_field }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.phone|as_crispy_field }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.password1|as_crispy_field }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.password2|as_crispy_field }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.role|as_crispy_field }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.genre|as_crispy_field }}
+                        </div>
+                        <div class="text-center">
+                            <br>
+                            <button type="submit" class="btn btn-primary mb-1">Valide</button>
+                            <button type="reset" class="btn btn-outline-primary mb-1">Réinitialiser</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Row-->
+</div>
+{% endblock %}

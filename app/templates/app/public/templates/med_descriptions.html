@@ -1,0 +1,146 @@
+{% extends "app/public/layouts/default.html" %} {% block content %} 
+{% load static %}
+<main class="main">
+  <div class="mainWrapper">
+      <div class="mainBackground clearfix">
+          <div class="row">
+              <div class="column small-centered">
+                  <div class="productCard_block">
+                      <div class="row">
+                          <div class="small-12 large-6 columns">
+                              <div class="productCard_leftSide clearfix">
+                                  <div class="productCard_brendBlock">
+                                      <a class="productCard_brendBlock__imageBlock" href="#">
+                                          <img src="https://github.com/BlackStar1991/CardProduct/blob/master/app/img/brtendsLogos/logo_sennheiser.png?raw=true" alt="sennheiser">
+                                      </a>
+                                  </div>
+
+                                  <div class="sliderBlock">
+                                      <ul class="sliderBlock_items">
+                                          <li class="sliderBlock_items__itemPhoto sliderBlock_items__showing">
+                                              <img src="{{ medecin.profile_photo.url }}" alt="headphones">
+                                          </li>
+                                          <li class="sliderBlock_items__itemPhoto">
+                                              <img src="{{ medecin.profile_photo.url }}"  alt="headphones">
+                                          </li>
+                                          <li class="sliderBlock_items__itemPhoto">
+                                              <img src="{{ medecin.profile_photo.url }}"  alt="headphones">
+                                          </li>
+                                          <li class="sliderBlock_items__itemPhoto">
+                                              <img src="{{ medecin.profile_photo.url }}"  alt="headphones">
+                                          </li>
+                                          <li class="sliderBlock_items__itemPhoto">
+                                              <img src="{{ medecin.profile_photo.url }}"  alt="headphones">
+                                          </li>
+                                      </ul>
+
+                                      
+                                      <div class="sliderBlock_controls">
+                                          <div class="sliderBlock_controls__navigatin">
+                                              <div class="sliderBlock_controls__wrapper">
+                                                  <div class="sliderBlock_controls__arrow sliderBlock_controls__arrowBackward">
+                                                      <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                                  </div>
+                                                  <div class="sliderBlock_controls__arrow sliderBlock_controls__arrowForward">
+                                                      <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                          <ul class="sliderBlock_positionControls">
+                                              <li class="sliderBlock_positionControls__paginatorItem sliderBlock_positionControls__active"></li>
+                                              <li class="sliderBlock_positionControls__paginatorItem"></li>
+                                              <li class="sliderBlock_positionControls__paginatorItem"></li>
+                                              <li class="sliderBlock_positionControls__paginatorItem"></li>
+                                              <li class="sliderBlock_positionControls__paginatorItem"></li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="small-12 large-6 columns">
+                              <div class="productCard_rightSide">
+                                  <div class="block_specification">
+                                      <div class="block_specification__specificationShow">
+                                          <i class="fa fa-cog block_specification__button block_specification__button__rotate"
+                                             aria-hidden="true"></i>
+                                          <span class="block_specification__text">Horaire</span>
+                                      </div>
+                                      <div class="block_specification__informationShow hide">
+                                          <i class="fa fa-info-circle block_specification__button block_specification__button__jump"
+                                             aria-hidden="true"></i>
+                                          <span class="block_specification__text">inform</span>
+                                      </div>
+                                  </div>
+
+                                  <p class="block_model">
+                                      <span class="block_model__text"></span>
+                                      <span class="block_model__number"></span>
+                                  </p>
+
+                                  <div class="block_product">
+                                      <h2 class="block_name block_name__mainName" style="font-weight:bold">{{ medecin.user.first_name }} {{ medecin.user.last_name }}</h2>
+                                      <h2 class="block_name block_name__addName">Specialité : <span style="color:blue">{{ medecin.specialite }}</span></h2>
+
+                                      <div class="block_informationAboutDevice">
+
+                                          <div class="block_descriptionCharacteristic block_descriptionCharacteristic__disActive">
+                                              <table class="block_specificationInformation_table">
+                                                  <tr style="background-color:gray;">
+                                                      <th>Date</th>
+                                                      <th>Délais</th>
+                                                  </tr>
+                                                  {% for horaire in horaires %}
+                                                  <tr>
+                                                      <td>{{ horaire.date}}</td>
+                                                      <td>{{ horaire.heure_debut}} - {{ horaire.heure_fin}}</td>
+                                                  </tr>
+                                                  {% endfor %}
+                                              </table>
+                                          </div>
+
+
+                                          <div class="block_descriptionInformation">
+                                              <span>
+                                                {{ cabinet.description }} 
+                                              </span>
+                                          </div>
+
+                                          <div class="block_rating clearfix">
+                                            <h2 class="block_name block_name__addName">Nom du Cabinet : <span style="color:blue">{{ cabinet.nom }}</span></h2><br>
+                                            <h1 class="block_name block_name__addName" style="text-align:center; text-decoration:underline; font-weight:bold;">Adrèsse</h1>
+                                            <h2 class="block_name block_name__addName">Province : <span style="color:blue">{{ cabinet.zone.commune.province.nom }}</span></h2>
+                                            <h2 class="block_name block_name__addName">Commune : <span style="color:blue">{{ cabinet.zone.commune.nom }}</span></h2>
+                                            <h2 class="block_name block_name__addName">Zone : <span style="color:blue">{{ cabinet.zone.nom }}</span></h2>
+                                            <h2 class="block_name block_name__addName" style="text-align:center;">{{ cabinet.adresse_complete }}</span></h2>
+
+                                          </div>
+                                          <div style="display:flex;gap:1em;">
+                                                    <a href="{% url 'public_index' %}">
+                                                <button class="button button_addToCard">
+                                                    Retour
+                                                </button>
+                                                </a>
+                                                <a href="{% url 'public_med_choix_créneaux' cabinet.id %}">
+                                                <button class="button button_addToCard">
+                                                    Reserver
+                                                </button>
+                                            </a>
+                                            </div>
+                                
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+</main>
+
+<script  src={% static 'app/public/descript/script.js' %}></script>
+{% endblock content %}

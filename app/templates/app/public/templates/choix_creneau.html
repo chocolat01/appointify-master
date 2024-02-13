@@ -1,0 +1,70 @@
+{% extends "app/public/layouts/default.html" %} {% block content %} 
+{% load static %}
+  <!-- Section-->
+  <section class="py-5">
+    <h2 style="text-align:center;">Créneaux du cabinet {{ cabinet.nom }}</h2>
+    <div class="container px-4 px-lg-5 mt-5">
+      <div
+        class="card-header"
+        style="text-align: center; text-decoration: underline"
+      >
+      </div>
+      <br /><br />
+      <div
+        class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+      >
+      {% for horaire in horaires %}
+        <div class="col mb-5 shadow">
+          <div class="card h-100">
+            <!-- Product image-->
+            <h4 style="text-align:center;">{{ horaire.date }}</h4>
+            <h5 style="text-align:center;">De {{ horaire.heure_debut }} à {{ horaire.heure_fin }}</h5>
+            {% comment %}
+            <img
+              class="card-img-top"
+              src="{% static 'app/public/img/medecins.jpeg' %}"
+              alt="..."
+            />
+            {% endcomment %}
+            <!-- Product details-->
+            <div class="card-body p-4">
+                <div class="text-center">
+                    <!-- Product name-->
+                    <ul>
+                        {% for créneau in horaire.créneaujournalier_set.all %}
+                            {% if créneau.pris %}
+                                {% comment %} <li><a class="btn btn-outline-dark mt-auto" href="">{{ créneau.debut }} - {{ créneau.fin }}</a> : pris</li> {% endcomment %}
+                            {% else %}
+                                <li><a class="btn btn-outline-dark mt-auto" href="{% url 'public_index' %}">{{ créneau.debut }} - {{ créneau.fin }}</a></li><br>
+                                {% comment %} <a href="{% url 'prendre_créneau' créneau.id %}">Prendre ce créneau</a> {% endcomment %}
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+{% endblock content %}
+
+{% for horaire in horaires %}
+<div class="col mb-5">
+<label>{{ horaire.date }} : de {{ horaire.heure_debut }} à {{ horaire.heure_fin }}</label>
+<Select name='créneau' class='form-control'>
+    <option value="">--------</option>
+    {% for créneau in horaire.créneaujournalier_set.all %}
+        {% if créneau.pris %}
+            <option value="">{{ créneau.debut }} - {{ créneau.fin }} : pris</option>
+        {% else %}
+            <option value=""> {{ créneau.debut }} - {{ créneau.fin }} : libre</option>
+            {% comment %} <a href="{% url 'prendre_créneau' créneau.id %}">Prendre ce créneau</a> {% endcomment %}
+        {% endif %}
+    {% endfor %}
+</select>
+</div>
+{% endfor %}

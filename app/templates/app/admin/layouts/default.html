@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--Head-->
+{% include 'app/partials/head.html' %}
+<!--And-->
+
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Sidebar -->
+    {% include 'app/admin/partials/sidebar.html' %}
+    <!-- fin Sidebar -->
+
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <!-- TopBar -->
+        {% include 'app/partials/nav.html' %}
+        <!-- fin Topbar -->
+
+        <!-- Container Fluid-->
+        {% block content %}
+        {% endblock  %}
+        <!---Container Fluid-->
+      </div>
+
+      <!-- Footer -->
+      {% include 'app/partials/footer.html' %}
+      <!-- Footer -->
+    </div>
+  </div>
+
+  <!-- Scroll to top -->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  {% load static %}
+  <script src="{% static 'app/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'app/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'app/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'app/js/ruang-admin.min.js' %}"></script>
+  <script src="{% static 'app/vendor/chart.js/Chart.min.js' %}"></script>
+  <script src="{% static 'app/js/demo/chart-area-demo.js' %}"></script>  
+  <script src="{% static 'app/js/main.js' %}"></script>  
+
+</body>
+
+</html>
